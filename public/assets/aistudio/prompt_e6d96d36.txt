@@ -1,0 +1,526 @@
+# MASTER PROMPT — GLINTS AI JOB ASSISTANT
+
+## 1. Project Overview
+
+Build a standalone, locally hosted web application named **Glints AI Job Assistant**.
+
+The application will help automate the job-search and application preparation process for a cybersecurity professional seeking employment in Jakarta, Indonesia.
+
+The system must integrate OpenAI for AI-powered job analysis, CV matching, suitability scoring, and customized cover-letter generation.
+
+The application must operate in **Approval Mode**: every application must be reviewed and explicitly approved by the user before submission.
+
+This must be a functional software project, not a prototype or static dashboard.
+
+## 2. User Profile and Job Search Configuration
+
+Use the following default job-search criteria:
+
+- Location: Jakarta, Indonesia.
+- Work arrangements: On-site, Hybrid, and Remote Jakarta-based.
+- Minimum expected salary: IDR 8,000,000 per month.
+- Salary filtering: Include negotiable and undisclosed salaries when the vacancy is relevant.
+- Experience: Junior–Mid Level and Mid Level.
+
+### Target Job Positions
+
+Prioritize the following positions:
+
+1. Cybersecurity Engineer
+2. IT Security Engineer
+3. Network Security Engineer
+4. Security Analyst
+5. IT GRC Specialist
+6. Solution Consultant
+7. Security Presales Engineer
+
+### Professional Background
+
+Use the following profile as the initial AI job-matching reference:
+
+- More than three years of cybersecurity and network security experience.
+- Experience with Fortinet and Palo Alto Networks firewalls.
+- Network security implementation and troubleshooting.
+- VPN, NAT, IDS/IPS, and NGFW.
+- SIEM and security monitoring.
+- Wazuh, ELK, OpenSearch, and Suricata.
+- Security implementation, technical presales, and solution consulting.
+- ISO 27001 and NIST familiarity.
+- Low-Level Design (LLD), User Acceptance Testing (UAT), and technical documentation.
+
+Allow the user to upload and manage their latest CV. The uploaded CV must become the primary source for AI matching rather than relying exclusively on this initial profile.
+
+## 3. Technical Architecture
+
+Build the application using:
+
+| Component | Technology |
+|---|---|
+| Frontend | React + Vite |
+| Backend | Node.js |
+| API Framework | Express.js |
+| Database | SQLite |
+| AI Provider | OpenAI API |
+| Browser Automation | Playwright, restricted to permitted workflows |
+| Package Manager | npm |
+| Operating System | Ubuntu 26.04 LTS |
+| Application Port | 3080 |
+
+The application must be standalone and run locally on the user's sifulbahri Ubuntu machine.
+
+Do not use Docker.
+
+Do not use pnpm.
+
+Use npm for all package management.
+
+## 4. Project Structure
+
+Create a clean, modular, maintainable architecture.
+
+glints-ai-assistant/
+- client/
+  - index.html
+  - src/
+    - components/
+    - pages/
+    - services/
+    - hooks/
+    - app.jsx
+    - main.jsx
+    - style.css
+  - package.json
+- server/
+  - src/
+    - routes/
+      - jobs.js
+      - analyzer.js
+      - applications.js
+      - settings.js
+    - services/
+      - openai.js
+      - job-matcher.js
+      - cv-parser.js
+      - cover-letter.js
+    - middleware/
+    - database.js
+    - index.js
+  - package.json
+- data/
+- uploads/
+- .env.example
+- .gitignore
+- package.json
+- README.md
+
+Adapt the structure when necessary, but preserve clear frontend/backend separation.
+
+## 5. Core Features
+
+### Module 1 — Dashboard
+
+Create a professional dashboard showing:
+
+- Total discovered jobs.
+- Jobs awaiting analysis.
+- Jobs matching the user's profile.
+- Applications awaiting approval.
+- Applications submitted.
+- Interviews.
+- Rejections.
+- Application success rate.
+
+Include visual charts for application activity and job-match distribution.
+
+### Module 2 — Job Discovery
+
+Allow the user to:
+
+- Import a Glints vacancy URL.
+- Paste a job description manually.
+- Add company information.
+- Add position title.
+- Add salary information.
+- Specify employment type.
+- Specify location.
+- Record the original vacancy URL.
+
+Support permitted integrations and data sources.
+
+IMPORTANT COMPLIANCE REQUIREMENTS:
+
+- Do not scrape Glints without prior authorization.
+- Do not bypass CAPTCHA, authentication, anti-bot protection, or access restrictions.
+- Do not automatically submit applications through unauthorized browser automation.
+- Do not violate Glints' Terms of Use.
+- Use manually imported vacancy information or officially authorized integrations.
+- Playwright may be used for permitted local browser workflows and navigation initiated or approved by the user.
+
+### Module 3 — AI Job Analyzer
+
+Integrate the OpenAI API.
+
+For each vacancy, analyze:
+
+- Technical skill compatibility.
+- Work experience compatibility.
+- Education requirements.
+- Required certifications.
+- Seniority compatibility.
+- Location compatibility.
+- Salary compatibility.
+- Job responsibilities.
+- Potential skill gaps.
+
+Generate a suitability score from 0 to 100.
+
+Use these initial classifications:
+
+- 85–100: Excellent Match.
+- 70–84: Good Match.
+- 50–69: Moderate Match.
+- Below 50: Low Match.
+
+Provide explanations for every score.
+
+Never invent qualifications, employment history, certifications, or experience.
+
+### Module 4 — CV Management
+
+Allow the user to:
+
+- Upload PDF and DOCX CV files.
+- Extract CV text.
+- Preview extracted information.
+- Manage multiple CV versions.
+- Select a preferred CV.
+- Generate recommendations for CV improvements.
+
+Preserve factual accuracy.
+
+Never fabricate experience or technical skills.
+
+### Module 5 — AI Cover Letter Generator
+
+Generate customized cover letters based on:
+
+- User's CV.
+- Job description.
+- Company information.
+- Position title.
+- Relevant technical experience.
+
+Allow editing, regeneration, copying, and saving.
+
+### Module 6 — Application Approval Queue
+
+This module is mandatory.
+
+Every prepared application must enter an approval queue.
+
+Display:
+
+- Company name.
+- Job title.
+- Salary information.
+- Location.
+- AI suitability score.
+- Selected CV.
+- Generated cover letter.
+- Original vacancy URL.
+
+Provide the following actions:
+
+1. Review Application.
+2. Edit Cover Letter.
+3. Change CV.
+4. Approve Application.
+5. Reject Application.
+6. Open Original Vacancy.
+
+The approval process must be explicit and recorded.
+
+Approval does not bypass the website's own application requirements or authorization restrictions.
+
+For Glints, the user should complete the final submission through an authorized application workflow unless an officially permitted integration supports submission.
+
+### Module 7 — Application Tracking
+
+Maintain application records with these statuses:
+
+- DISCOVERED
+- ANALYZED
+- PREPARED
+- PENDING_APPROVAL
+- APPROVED
+- SUBMITTED
+- INTERVIEW
+- REJECTED
+- WITHDRAWN
+
+Record:
+
+- Company.
+- Job title.
+- Original vacancy URL.
+- Salary.
+- Match score.
+- Application date.
+- Submission date.
+- Application status.
+- Notes.
+- Follow-up date.
+
+Prevent duplicate applications to the same vacancy.
+
+### Module 8 — Settings
+
+Provide configurable settings for:
+
+- OpenAI API key.
+- OpenAI model.
+- Minimum salary.
+- Target locations.
+- Target job positions.
+- Work arrangements.
+- Minimum AI match score.
+- Preferred CV.
+- Application approval mode.
+
+Store secrets only on the backend.
+
+Never expose API keys to frontend JavaScript.
+
+## 6. Database Design
+
+Use SQLite.
+
+Create tables for:
+
+- user_settings
+- cv_profiles
+- jobs
+- job_analysis
+- applications
+- application_history
+- generated_documents
+
+Implement:
+
+- Database initialization.
+- Schema migrations.
+- Proper relationships.
+- Input validation.
+- Error handling.
+- Duplicate prevention.
+
+## 7. API Design
+
+Create REST APIs.
+
+Suggested endpoints:
+
+GET /api/health
+
+GET /api/jobs
+
+POST /api/jobs
+
+GET /api/jobs/:id
+
+POST /api/jobs/:id/analyze
+
+GET /api/applications
+
+POST /api/applications
+
+GET /api/applications/:id
+
+PATCH /api/applications/:id/status
+
+POST /api/applications/:id/approve
+
+POST /api/applications/:id/reject
+
+POST /api/cv/upload
+
+GET /api/cv
+
+GET /api/settings
+
+PATCH /api/settings
+
+Implement proper validation and error responses.
+
+## 8. Frontend Design
+
+Create a modern, professional SaaS-style dashboard.
+
+Design requirements:
+
+- Responsive desktop and mobile layouts.
+- Clean navigation sidebar.
+- Professional typography.
+- Modern data tables.
+- Application status badges.
+- Search and filtering.
+- Dashboard statistics.
+- Charts and visual analytics.
+- Modal dialogs for approval.
+- Loading and error states.
+- Consistent design system.
+
+Use a dark professional theme with restrained accent colors.
+
+Prioritize usability and information clarity over decorative effects.
+
+## 9. Security Requirements
+
+Implement:
+
+- Backend-only OpenAI API access.
+- Environment variable configuration.
+- Secure secret handling.
+- Input validation.
+- File upload restrictions.
+- File size limits.
+- MIME-type validation.
+- Secure local file storage.
+- Protection against path traversal.
+- Rate limiting.
+- Security headers.
+- Authentication for any non-localhost access.
+- Safe logging without API keys or sensitive credentials.
+
+Default to binding the server to 127.0.0.1.
+
+Do not expose the application publicly without authentication and HTTPS.
+
+## 10. Environment Configuration
+
+Create `.env.example`:
+
+PORT=3080
+HOST=127.0.0.1
+NODE_ENV=development
+OPENAI_API_KEY=
+OPENAI_MODEL=
+DATABASE_PATH=./data/applications.db
+
+Never commit `.env` or uploaded CV files to Git.
+
+## 11. Development Phases
+
+Follow this implementation sequence.
+
+### Phase 1 — Project Foundation
+- Initialize React/Vite.
+- Initialize Node.js/Express.
+- Configure SQLite.
+- Configure environment variables.
+- Create health-check endpoint.
+- Build dashboard layout.
+
+### Phase 2 — Job Management
+- Build job discovery interface.
+- Implement manual job import.
+- Implement job filtering.
+- Implement job detail pages.
+- Implement duplicate detection.
+
+### Phase 3 — OpenAI Integration
+- Integrate OpenAI API.
+- Implement CV analysis.
+- Implement job-description analysis.
+- Implement compatibility scoring.
+- Implement cover-letter generation.
+
+### Phase 4 — Application Approval
+- Build approval queue.
+- Implement application review.
+- Implement editing.
+- Implement explicit approval.
+- Implement rejection.
+- Implement original vacancy navigation.
+
+### Phase 5 — Application Tracking
+- Build application tracker.
+- Implement status management.
+- Implement application history.
+- Implement analytics.
+- Implement follow-up reminders.
+
+### Phase 6 — Deployment
+- Configure production build.
+- Configure persistent Ubuntu service using systemd.
+- Configure local server on port 3080.
+- Implement application logging.
+- Document installation and maintenance.
+
+## 12. Development Rules
+
+Follow these rules strictly:
+
+1. Build functional features, not mock interfaces.
+2. Do not use placeholder data as real application records.
+3. Do not skip backend implementation.
+4. Do not hardcode API keys.
+5. Do not introduce Docker.
+6. Use npm.
+7. Maintain modular architecture.
+8. Validate all API inputs.
+9. Handle errors properly.
+10. Keep the database persistent.
+11. Test each module before proceeding.
+12. Maintain a README with setup instructions.
+13. Provide installation and startup commands.
+14. Do not change the agreed architecture without explaining why.
+15. Do not claim that a feature works until it has been tested.
+
+## 13. Expected Deliverables
+
+At completion, provide:
+
+- Complete source code.
+- Functional React dashboard.
+- Functional Express backend.
+- SQLite database initialization.
+- OpenAI integration.
+- CV upload and parsing.
+- AI job matching.
+- Cover-letter generation.
+- Application approval workflow.
+- Application tracking.
+- Security implementation.
+- `.env.example`.
+- `.gitignore`.
+- README.md.
+- Installation instructions.
+- Startup commands.
+- Ubuntu systemd service configuration.
+- Test results.
+
+## 14. Final Execution Instruction
+
+Start with Phase 1.
+
+Before implementation:
+
+1. Inspect the existing working directory.
+2. Check Node.js and npm versions.
+3. Check whether port 3080 is available.
+4. Avoid overwriting unrelated projects.
+5. Create the project directory if it does not exist.
+
+Then implement the project incrementally.
+
+After each phase:
+
+- Explain what was implemented.
+- List files created or modified.
+- Run relevant tests.
+- Report actual test results.
+- Identify remaining issues.
+- Wait for confirmation before proceeding to the next major phase.
+
+The final objective is a reliable, secure, locally hosted **Glints AI Job Assistant** that reduces manual job-search work while keeping the user in control of every application submission.

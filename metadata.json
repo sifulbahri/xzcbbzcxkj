@@ -1,0 +1,6 @@
+{
+  "name": "Glints AI Job Assistant",
+  "description": "Local-first cybersecurity job search, AI compatibility analyzer, CV manager, and human-in-the-loop application approval workbench for Jakarta security roles.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

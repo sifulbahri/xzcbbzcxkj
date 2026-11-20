@@ -1,0 +1,28 @@
+[Unit]
+Description=Glints AI Job Assistant (Local Cybersecurity Job Workbench)
+After=network.target
+
+[Service]
+Type=simple
+User=sifulbahri
+Group=sifulbahri
+WorkingDirectory=/home/sifulbahri/glints-ai-assistant
+EnvironmentFile=/home/sifulbahri/glints-ai-assistant/.env
+Environment=NODE_ENV=production
+Environment=PORT=3080
+Environment=HOST=127.0.0.1
+ExecStart=/usr/bin/npm run start
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=glints-ai-assistant
+
+# Basic systemd hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/home/sifulbahri/glints-ai-assistant/data /home/sifulbahri/glints-ai-assistant/uploads
+
+[Install]
+WantedBy=multi-user.target
